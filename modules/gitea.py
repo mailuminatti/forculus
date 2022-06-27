@@ -65,6 +65,27 @@ def remove_user(user_to_remove):
          }
     response = requests.request("DELETE",endpoint, data=json.dumps(payload), headers=headers)
     return response
+def refresh_user(user_data):
+    
+    config = configparser.ConfigParser()
+    config.read('integrations.ini')
+    url = config['gitea']['url']
+    token = config['gitea']['apikey']
+
+    gitea_data = next((item for item in user_data['Tools'] if item['Name'] == 'gitea'), None)
+
+    endpoint = url + 'api/v1/admin/users/' + user_data['username']
+    payload = {
+        'login_name' : user_data['username'],
+        'source_id' : 0,
+        'admin' : gitea_data['Admin']
+    }
+    headers = {
+        'Authorization': 'Bearer ' + token,
+        "Content-Type":"application/json"
+         }
+    response = requests.request("PATCH",endpoint, data=json.dumps(payload), headers=headers)
+    return response
 
 def integrate_users(core_users):
     
@@ -102,4 +123,8 @@ def integrate_users(core_users):
         if result:
             print('User ' + user_to_remove + ' deleted in gitea')
     
+    for user_to_refresh in gitea_local_users:
+        user_data = next((item for item in core_users['users'] if item['username'] == user_to_refresh), None)
+        result = refresh_user(user_data)
+
     result = result

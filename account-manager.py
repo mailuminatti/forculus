@@ -31,9 +31,9 @@ def main():
             used_integrations.append(tool['Name'])
     used_integrations = list(dict.fromkeys(used_integrations))
 
+    if 'gitea' in used_integrations: gitea.integrate_users(core_users)
     if 'mattermost' in used_integrations: mattermost.integrate_users(core_users)
     if 'droneio' in used_integrations: droneio.integrate_users(core_users)
-    if 'gitea' in used_integrations: gitea.integrate_users(core_users)
     if 'wikijs' in used_integrations: wikijs.integrate_users(core_users)
     if 'Openproject' in used_integrations: openproject.integrate_users(core_users)
     if 'Passbolt' in used_integrations: passbolt_community.integrate_users(core_users)

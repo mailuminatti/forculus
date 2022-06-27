@@ -38,6 +38,8 @@ users:
       Groups: Test123
     - Name: wikijs
     - Name: droneio
+    - Name: gitea
+      Admin: False
 
   - email: martin@gmail.com
     username: martin
@@ -50,6 +52,7 @@ users:
       Groups: Test123
     - Name: Portainer
     - Name: gitea
+      Admin: True
 
   - email: portainer_automation@gmail.com
     username: portainer_automation
