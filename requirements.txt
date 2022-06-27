@@ -1,0 +1,5 @@
+passbolt-python-api
+passbolt-api
+requests
+requests_gpgauthlib
+gql[all]
