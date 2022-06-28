@@ -18,4 +18,16 @@ apikey = newlygeneratedtoken10wd9d9f90293eieef3
 1. Add the Gitea app to your users that need access to it:
 
 
+```yaml
+users:
+  - email: john.snow@mail.com
+    username: john.snow
+    FirstName: John
+    LastName: Snow
+    Tools:
+    - Name: gitea
+      Admin: true
 ```
+Valid parameters:
+
+`Admin`: Grants administrative privileges to the Gitea user

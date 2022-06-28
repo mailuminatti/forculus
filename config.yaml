@@ -1,0 +1,9 @@
+integrations:
+  - mattermost
+  - droneio
+  - gitea
+  - wikijs
+  - Openproject
+  - Passbolt
+  - integration2
+  - Portainer

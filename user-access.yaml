@@ -1,0 +1,73 @@
+users:
+  - email: martin.iluminatti@gmail.com
+    username: martin.iluminatti
+    FirstName: Martin
+    LastName: Iluminatti
+    Tools:
+    - Name: Passbolt
+      Groups: Group1
+    - Name: IntegrationABC
+      Groups: Test123
+    - Name: Openproject
+    - Name: wikijs
+    - Name: mattermost
+
+  - email: john.snow@gmail.com
+    username: john.snow
+    FirstName: John
+    LastName: Snow
+    Tools:
+    - Name: Passbolt
+      Groups: Group1
+    - Name: Portainer
+    - Name: IntegrationABC
+      Groups: Test123
+    - Name: wikijs
+    - Name: droneio
+    - Name: mattermost
+
+
+  - email: rob.baratheon@gmail.com
+    username: rob.baratheon
+    FirstName: Rob
+    LastName: Baratheon
+    Tools:
+    - Name: IntegrationCDE
+      Groups: Group1
+    - Name: IntegrationABC
+      Groups: Test123
+    - Name: wikijs
+    - Name: droneio
+    - Name: gitea
+      Admin: False
+
+  - email: martin@gmail.com
+    username: martin
+    FirstName: Martin
+    LastName: Martin
+    Tools:
+    - Name: IntegrationCDE
+      Groups: Group1
+    - Name: IntegrationABC
+      Groups: Test123
+    - Name: Portainer
+    - Name: gitea
+      Admin: True
+
+  - email: portainer_automation@gmail.com
+    username: portainer_automation
+    FirstName: Portainer
+    LastName: Automation
+    Tools:
+    - Name: IntegrationCDE
+      Groups: Group1
+    - Name: IntegrationABC
+      Groups: Test123
+    - Name: Portainer
+
+  - email: admin@example.net
+    username: admin
+    FirstName: Admin
+    LastName: Admin
+    Tools:
+    - Name: Openproject
