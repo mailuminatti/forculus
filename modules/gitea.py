@@ -2,6 +2,8 @@
 import configparser
 import requests
 import json
+from yaspin import yaspin
+
 def get_users():
 
     config = configparser.ConfigParser()
@@ -36,7 +38,8 @@ def create_user(user_data):
     payload = {
         'email': user_data['email'],
         'password': '123Changeme!456',
-        'username': user_data['username']
+        'username': user_data['username'],
+        'full_name': user_data['FirstName'] + ' ' + user_data['LastName']
     }
     response = requests.request("POST",endpoint, data=json.dumps(payload), headers=headers)
     return json.loads(response.content)
@@ -78,7 +81,9 @@ def refresh_user(user_data):
     payload = {
         'login_name' : user_data['username'],
         'source_id' : 0,
-        'admin' : gitea_data['Admin']
+        'admin' : gitea_data['Admin'],
+        'email': user_data['email'],
+        'full_name' : user_data['FirstName'] + ' ' + user_data['LastName']
     }
     headers = {
         'Authorization': 'Bearer ' + token,
@@ -122,9 +127,17 @@ def integrate_users(core_users):
         result = remove_user(user_to_remove)
         if result:
             print('User ' + user_to_remove + ' deleted in gitea')
+
+    with yaspin(text="Refreshing Gitea users", color="yellow") as spinner:
     
-    for user_to_refresh in gitea_local_users:
-        user_data = next((item for item in core_users['users'] if item['username'] == user_to_refresh), None)
-        result = refresh_user(user_data)
+        for user_to_refresh in gitea_local_users:
+            user_data = next((item for item in core_users['users'] if item['username'] == user_to_refresh), None)
+            result = refresh_user(user_data)
+
+        if result:
+            spinner.ok("✅ ")
+        else:
+            spinner.fail("💥 ")
+
 
     result = result

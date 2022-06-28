@@ -4,12 +4,6 @@ users:
     FirstName: Martin
     LastName: Iluminatti
     Tools:
-    - Name: Passbolt
-      Groups: Group1
-    - Name: IntegrationABC
-      Groups: Test123
-    - Name: Openproject
-    - Name: wikijs
     - Name: mattermost
 
   - email: john.snow@gmail.com
@@ -17,13 +11,7 @@ users:
     FirstName: John
     LastName: Snow
     Tools:
-    - Name: Passbolt
-      Groups: Group1
-    - Name: Portainer
-    - Name: IntegrationABC
-      Groups: Test123
-    - Name: wikijs
-    - Name: droneio
+    - Name: portainer
     - Name: mattermost
 
 
@@ -32,25 +20,15 @@ users:
     FirstName: Rob
     LastName: Baratheon
     Tools:
-    - Name: IntegrationCDE
-      Groups: Group1
-    - Name: IntegrationABC
-      Groups: Test123
-    - Name: wikijs
-    - Name: droneio
     - Name: gitea
-      Admin: False
+      Admin: true
 
   - email: martin@gmail.com
     username: martin
     FirstName: Martin
     LastName: Martin
     Tools:
-    - Name: IntegrationCDE
-      Groups: Group1
-    - Name: IntegrationABC
-      Groups: Test123
-    - Name: Portainer
+    - Name: portainer
     - Name: gitea
       Admin: True
 
@@ -59,15 +37,12 @@ users:
     FirstName: Portainer
     LastName: Automation
     Tools:
-    - Name: IntegrationCDE
-      Groups: Group1
-    - Name: IntegrationABC
-      Groups: Test123
-    - Name: Portainer
+    - Name: portainer
 
   - email: admin@example.net
     username: admin
     FirstName: Admin
     LastName: Admin
     Tools:
-    - Name: Openproject
+    - Name: openproject
+

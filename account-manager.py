@@ -3,14 +3,7 @@ import configparser
 import requests
 import json
 
-from modules import portainer_ce
-from modules import passbolt_community
-from modules import openproject
-#from modules import wikijs
-#from modules import droneio
-from modules import gitea
-from modules import mattermost
-
+from modules import *
 
 def main():
     print("Loading list of users")
@@ -31,13 +24,13 @@ def main():
             used_integrations.append(tool['Name'])
     used_integrations = list(dict.fromkeys(used_integrations))
 
-    if 'gitea' in used_integrations: gitea.integrate_users(core_users)
-    if 'mattermost' in used_integrations: mattermost.integrate_users(core_users)
-    if 'droneio' in used_integrations: droneio.integrate_users(core_users)
-    if 'wikijs' in used_integrations: wikijs.integrate_users(core_users)
-    if 'Openproject' in used_integrations: openproject.integrate_users(core_users)
-    if 'Passbolt' in used_integrations: passbolt_community.integrate_users(core_users)
-    if 'Portainer' in used_integrations: portainer_ce.integrate_users(core_users)
+
+    # All the modules have an integrate_users function
+    # therefore we can just go through all the detected integrations
+    # and for each of them, use the integrate_users function
+    for integration in used_integrations:
+        integration_command = integration + '.integrate_users(core_users)'
+        exec(integration_command)
 
                 
     config = config
