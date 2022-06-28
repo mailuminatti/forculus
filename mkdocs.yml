@@ -1,1 +1,7 @@
-site_name: My Docs
+site_name: Forculus Documentation
+
+repo_url: https://github.com/mailuminatti/forculus
+edit_uri: 'tree/main/docs'
+
+theme:
+    name: readthedocs
