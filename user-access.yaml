@@ -1,16 +1,24 @@
 users:
   - email: martin.iluminatti@gmail.com
-    username: martin.iluminatti
+    username: mailuminatti
     FirstName: Martin
     LastName: Iluminatti
     Tools:
+    - Name: github
+      Username: mailuminatti
+      Role: admin
+    - Name: netlify
     - Name: mattermost
 
-  - email: john.snow@gmail.com
-    username: john.snow
+  - email: me@miluminatti.tk
+    username: memiluminatti
     FirstName: John
     LastName: Snow
     Tools:
+    # - Name: github
+    #   Role: direct_member
+    - Name: netlify
+      Role: Collaborator
     - Name: portainer
     - Name: mattermost
 

@@ -4,3 +4,4 @@ requests
 requests_gpgauthlib
 gql[all]
 yaspin
+PyGithub[integrations]
