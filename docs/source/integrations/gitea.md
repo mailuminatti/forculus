@@ -30,4 +30,4 @@ users:
 ```
 Valid parameters:
 
-`Admin`: Grants administrative privileges to the Gitea user
+`Admin`: Grants administrative privileges to the Gitea user 
