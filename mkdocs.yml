@@ -3,9 +3,5 @@ site_name: Forculus Documentation
 repo_url: https://github.com/mailuminatti/forculus
 edit_uri: 'tree/main/docs'
 
-nav:
-    - Home: index.md
-    - About: about.md
-    
 theme:
     name: readthedocs
