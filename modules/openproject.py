@@ -27,6 +27,7 @@ def create_user(new_user):
     config.read('integrations.ini')
     url = config['openproject']['url']
     apikey = config['openproject']['apikey']
+    default_password = config['forculus']['default_password']
     endpoint = url + 'api/v3/users'
 
     session = requests.Session()
@@ -35,11 +36,11 @@ def create_user(new_user):
     auth = session.post(endpoint)
     
     payload = {
-        "lastName": new_user['LastName'],
-        "firstName": new_user['FirstName'],
+        "lastname": new_user['lastname'],
+        "firstname": new_user['firstname'],
         "login": new_user['username'],
         "email": new_user['email'],
-        "password": "123ChangeMe!456",
+        "password": default_password,
         "status": "active"
             }
     headers =  {"Content-Type":"application/json"}
@@ -84,8 +85,8 @@ def integrate_users(core_users):
     #Obtain all the users that should be in Openproject (in file)
     openproject_local_users = []
     for user in core_users['users']:
-        for tool in user['Tools']:
-            if tool['Name'] == 'Openproject':
+        for tool in user['tools']:
+            if tool['name'] == 'Openproject':
                 openproject_local_users.append(user['email'])
 
     #Obtain list of all users that should be created in source
@@ -96,7 +97,7 @@ def integrate_users(core_users):
         user_data =  (next(x for x in core_users_data if x['email'] == new_user))
         result = create_user(user_data)
         if result:
-            print('User ' + result['Username'] + ' created in Openproject')
+            print('User ' + result['username'] + ' created in Openproject')
     
     #Obtain list of all users that should not longer exist in source
     openproject_users_to_remove = list(set(openproject_source_users) - set(openproject_local_users))

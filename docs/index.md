@@ -23,11 +23,11 @@ organization = yourorganizationname
 users:
   - email: john.snow@mail.com
     username: johnsnow
-    FirstName: John
-    LastName: Snow
-    Tools:
-    - Name: github
-      Role: admin
+    firstname: John
+    lastname: Snow
+    tools:
+    - name: github
+      role: admin
 ```
 4. Install all the requirements `pip install -r requirements.txt`
 5. Run it `python3 forculus-manager.py`

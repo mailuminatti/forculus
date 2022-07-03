@@ -59,7 +59,7 @@ def create_user(user_data):
             create(
             email: """ + '"' + user_data['email'] + '"' + 
         """
-            name: """ + '"' + user_data['FirstName'] + ' ' + user_data['LastName'] + '"'
+            name: """ + '"' + user_data['firstname'] + ' ' + user_data['lastname'] + '"'
         """
             providerKey: "Local"
             groups: 3
@@ -89,7 +89,7 @@ def get_user_id(username):
     active_users = get_users()
     
     for user in active_users:
-        if user['Username'] == username:
+        if user['username'] == username:
             return user['Id']
         
 
@@ -122,8 +122,8 @@ def integrate_users(core_users):
     #Obtain all the users that should be in wikijs (in file)
     wikijs_local_users = []
     for user in core_users['users']:
-        for tool in user['Tools']:
-            if tool['Name'] == 'wikijs':
+        for tool in user['tools']:
+            if tool['name'] == 'wikijs':
                 wikijs_local_users.append(user['email'])
 
     #Obtain list of all users that should be created in source
@@ -135,7 +135,7 @@ def integrate_users(core_users):
         user_data = next((item for item in core_users['users'] if item['email'] == new_user), None)
         result = create_user(user_data)
         if result:
-            print('User ' + result['Username'] + ' created in wikijs')
+            print('User ' + result['username'] + ' created in wikijs')
     
     #Obtain list of all users that should not longer exist in source
     wikijs_users_to_remove = list(set(wikijs_source_users) - set(wikijs_local_users))

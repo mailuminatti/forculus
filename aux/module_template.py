@@ -4,12 +4,21 @@ import requests
 import json
 from yaspin import yaspin
 
+auth_token = ''
+
+def authenticate():
+    global auth_token
+
+    config = configparser.ConfigParser()
+    config.read('integrations.ini')
+    auth_token = config['tool_name']['apikey']
+
 def get_users():
 
     config = configparser.ConfigParser()
     config.read('integrations.ini')
-    url = config['gitea']['url']
-    token = config['gitea']['apikey']
+    url = config['tool_name']['url']
+    token = config['tool_name']['apikey']
 
     endpoint = url + 'api/v1/admin/users'
     payload = {
@@ -26,8 +35,8 @@ def create_user(user_data):
 
     config = configparser.ConfigParser()
     config.read('integrations.ini')
-    url = config['gitea']['url']
-    token = config['gitea']['apikey']
+    url = config['tool_name']['url']
+    token = config['tool_name']['apikey']
     default_password = config['forculus']['default_password']
 
     endpoint = url + 'api/v1/admin/users'
@@ -58,8 +67,8 @@ def remove_user(user_to_remove):
 
     config = configparser.ConfigParser()
     config.read('integrations.ini')
-    url = config['gitea']['url']
-    token = config['gitea']['apikey']
+    url = config['tool_name']['url']
+    token = config['tool_name']['apikey']
 
     endpoint = url + 'api/v1/admin/users/' + user_to_remove
     payload = {}
@@ -73,16 +82,16 @@ def refresh_user(user_data):
     
     config = configparser.ConfigParser()
     config.read('integrations.ini')
-    url = config['gitea']['url']
-    token = config['gitea']['apikey']
+    url = config['tool_name']['url']
+    token = config['tool_name']['apikey']
 
-    gitea_data = next((item for item in user_data['tools'] if item['name'] == 'gitea'), None)
+    tool_name_data = next((item for item in user_data['tools'] if item['name'] == 'tool_name'), None)
 
     endpoint = url + 'api/v1/admin/users/' + user_data['username']
     payload = {
         'login_name' : user_data['username'],
         'source_id' : 0,
-        'admin' : gitea_data['admin'],
+        'admin' : tool_name_data['admin'],
         'email': user_data['email'],
         'full_name' : user_data['firstname'] + ' ' + user_data['lastname']
     }
@@ -94,43 +103,43 @@ def refresh_user(user_data):
     return response
 
 def integrate_users(core_users):
-    with yaspin(text="Processing Gitea users", color="yellow") as spinner:
+    with yaspin(text="Processing tool_name users", color="yellow") as spinner:
 
-        gitea_active_users = get_users()
+        tool_name_active_users = get_users()
 
-        #Obtain all the users that are currently in gitea
-        gitea_source_users = []
-        for user in gitea_active_users:
-            gitea_source_users.append(user['username'])
+        #Obtain all the users that are currently in tool_name
+        tool_name_source_users = []
+        for user in tool_name_active_users:
+            tool_name_source_users.append(user['username'])
 
-        #Obtain all the users that should be in gitea (in file)
-        gitea_local_users = []
+        #Obtain all the users that should be in tool_name (in file)
+        tool_name_local_users = []
         for user in core_users['users']:
             for tool in user['tools']:
-                if tool['name'] == 'gitea':
-                    gitea_local_users.append(user['username'])
+                if tool['name'] == 'tool_name':
+                    tool_name_local_users.append(user['username'])
 
         #Obtain list of all users that should be created in source
-        gitea_users_to_create = list(set(gitea_local_users) - set(gitea_source_users))
+        tool_name_users_to_create = list(set(tool_name_local_users) - set(tool_name_source_users))
 
         #Create users in source
-        for new_user in gitea_users_to_create:
+        for new_user in tool_name_users_to_create:
             #Obtain all the information from the user, not just the email
             user_data = next((item for item in core_users['users'] if item['username'] == new_user), None)
             result = create_user(user_data)
             if result:
-                spinner.write('User ' + result['username'] + ' created in gitea')
+                spinner.write('> User ' + result['username'] + ' created in tool_name')
         
         #Obtain list of all users that should not longer exist in source
-        gitea_users_to_remove = list(set(gitea_source_users) - set(gitea_local_users))
+        tool_name_users_to_remove = list(set(tool_name_source_users) - set(tool_name_local_users))
 
         #Remove users in source
-        for user_to_remove in gitea_users_to_remove:
+        for user_to_remove in tool_name_users_to_remove:
             result = remove_user(user_to_remove)
             if result:
-                spinner.write('User ' + user_to_remove + ' deleted in gitea')
+                spinner.write('> User ' + user_to_remove + ' deleted in tool_name')
         
-        for user_to_refresh in gitea_local_users:
+        for user_to_refresh in tool_name_local_users:
             user_data = next((item for item in core_users['users'] if item['username'] == user_to_refresh), None)
             result = refresh_user(user_data)
 

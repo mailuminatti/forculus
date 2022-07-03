@@ -1,56 +1,35 @@
 users:
+  - email: mail1@miluminatti.tk
+    username: jsnow1234
+    firstname: John
+    lastname: Snow
+    tools:
+    - name: gitea
+      admin: true
+    - name: github
+      role: admin 
+    - name: portainer
+      role: 1
+    - name: mattermost
+
+  - email: mail2@miluminatti.tk
+    username: rbaratheon1234
+    firstname: Rob
+    lastname: Baratheon
+    tools:
+    - name: gitea
+      admin: false
+    - name: github
+      role: direct_member
+    - name: portainer
+      role: 2
+    - name: mattermost
+
   - email: martin.iluminatti@gmail.com
-    username: mailuminatti
-    FirstName: Martin
-    LastName: Iluminatti
-    Tools:
-    - Name: github
-      Username: mailuminatti
-      Role: admin
-    - Name: netlify
-    - Name: mattermost
-
-  - email: me@miluminatti.tk
-    username: memiluminatti
-    FirstName: John
-    LastName: Snow
-    Tools:
-    # - Name: github
-    #   Role: direct_member
-    - Name: netlify
-      Role: Collaborator
-    - Name: portainer
-    - Name: mattermost
-
-
-  - email: rob.baratheon@gmail.com
-    username: rob.baratheon
-    FirstName: Rob
-    LastName: Baratheon
-    Tools:
-    - Name: gitea
-      Admin: true
-
-  - email: martin@gmail.com
-    username: martin
-    FirstName: Martin
-    LastName: Martin
-    Tools:
-    - Name: portainer
-    - Name: gitea
-      Admin: True
-
-  - email: portainer_automation@gmail.com
-    username: portainer_automation
-    FirstName: Portainer
-    LastName: Automation
-    Tools:
-    - Name: portainer
-
-  - email: admin@example.net
-    username: admin
-    FirstName: Admin
-    LastName: Admin
-    Tools:
-    - Name: openproject
-
+    username: martin.iluminatti
+    firstname: Martin
+    lastname: Iluminatti
+    tools:
+    - name: portainer
+      role: 1
+    - name: mattermost

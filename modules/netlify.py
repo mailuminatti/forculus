@@ -62,11 +62,11 @@ def create_user(new_user):
 
     endpoint = url + space_slug + '/members'
 
-    netlify_data = next((item for item in new_user['Tools'] if item['Name'] == 'netlify'), None)
+    netlify_data = next((item for item in new_user['tools'] if item['name'] == 'netlify'), None)
 
     payload = {
         'email': new_user['email'],
-        'role': netlify_data['Role']
+        'role': netlify_data['role']
     }
     
     headers =  {
@@ -112,15 +112,15 @@ def refresh_user(user_data):
 
     user_id = get_user_id(user_data['username'])
 
-    netlify_data = next((item for item in user_data['Tools'] if item['Name'] == 'netlify'), None)
+    netlify_data = next((item for item in user_data['tools'] if item['name'] == 'netlify'), None)
 
     endpoint = url + 'api/v4/users/' + user_id
     payload = {
         'id': user_id,
         'email': user_data['email'],
         'username': user_data['username'],
-        'first_name': user_data['FirstName'],
-        'last_name': user_data['LastName'],
+        'first_name': user_data['firstname'],
+        'last_name': user_data['lastname'],
     }
     headers = {
         'Authorization': 'Bearer ' + auth_token,
@@ -141,8 +141,8 @@ def integrate_users(core_users):
     #Obtain all the users that should be in netlify (in file)
     netlify_local_users = []
     for user in core_users['users']:
-        for tool in user['Tools']:
-            if tool['Name'] == 'netlify':
+        for tool in user['tools']:
+            if tool['name'] == 'netlify':
                 netlify_local_users.append(user['email'])
 
     #Obtain list of all users that should be created in source
